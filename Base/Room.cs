@@ -26,5 +26,8 @@ namespace DungeonMaker
             result += (this.WestWall.Present) ? "W" : string.Empty;
             return result;
         }
+        public bool RoomClosed(){
+            return this.NorthWall.Present && this.EastWall.Present && this.SouthWall.Present && this.WestWall.Present;
+        }
     }
 }
