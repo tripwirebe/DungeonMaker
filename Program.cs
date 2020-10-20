@@ -6,7 +6,8 @@ namespace DungeonMaker
     {
         static void Main(string[] args)
         {
-            DungeonMaker dungeonMaker = new DungeonMaker(5,5,10);
+            int seed = 500;
+            DungeonMaker dungeonMaker = new DungeonMaker(5,5,10,seed);
             Room [,] dungeon = dungeonMaker.Build();
             PrintDungeon(dungeon);
         }
@@ -14,7 +15,7 @@ namespace DungeonMaker
             for(int i = 0; i < dungeon.GetLength(0);i++){
                 string result = string.Empty;
                 for(int j = 0; j < dungeon.GetLength(1);j++){
-                    result += $"{dungeon[i,j]},";
+                    result += $"{dungeon[i,j]}";
                 }
                 Console.WriteLine(result);
             }

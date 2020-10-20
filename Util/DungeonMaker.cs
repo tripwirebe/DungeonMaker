@@ -9,10 +9,13 @@ namespace DungeonMaker
         public int Y { get; set; }
         public Room[,] Dungeon { get; set; }
         public int Ods { get; set; }
-        public DungeonMaker(int x, int y, int ods)
+        public int Seed {get;set;}
+        private Random Rng{get;set;}
+        public DungeonMaker(int x, int y, int ods,int seed)
         {
             this.Dungeon = new Room[x, y];
             this.Ods = ods;
+            this.Rng = new Random(seed);
         }
 
         /// <summary>
@@ -34,6 +37,7 @@ namespace DungeonMaker
                 }
             }
             //2nd Pass calculate for future rooms that have changed
+            //@todo modify the logic so that a second pass shouldn't be needed anymore
             for (int i = 0; i < this.Dungeon.GetLength(0); i++)
             {
                 for (int j = 0; j < this.Dungeon.GetLength(1); j++)
@@ -74,8 +78,8 @@ namespace DungeonMaker
         /// <param name="w"></param>
         private void CalculateWall(Wall w)
         {
-            Random r = new Random();
-            int result = r.Next(this.Ods);
+            
+            int result = this.Rng.Next(this.Ods);
             w.Present = Ods - 1 == result;
             Console.WriteLine(result);
         }

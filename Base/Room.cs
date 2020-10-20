@@ -49,6 +49,7 @@ namespace DungeonMaker
             result += (this.EastWall.Present) ? "E" : string.Empty;
             result += (this.SouthWall.Present) ? "S" : string.Empty;
             result += (this.WestWall.Present) ? "W" : string.Empty;
+            result += "\t";
             return result;
         }
         /// <summary>
