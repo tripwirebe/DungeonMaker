@@ -7,7 +7,10 @@ namespace DungeonMaker
         static void Main(string[] args)
         {
             int seed = 500;
-            DungeonMaker dungeonMaker = new DungeonMaker(5,5,10,seed);
+            int x = 5;
+            int y = 5;
+            int odds = 10;
+            DungeonMaker dungeonMaker = new DungeonMaker(x,y,odds,seed);
             Room [,] dungeon = dungeonMaker.Build();
             PrintDungeon(dungeon);
         }
