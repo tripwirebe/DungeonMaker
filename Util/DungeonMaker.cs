@@ -15,6 +15,10 @@ namespace DungeonMaker
             this.Ods = ods;
         }
 
+        /// <summary>
+        /// Function that will generate the dungeon
+        /// </summary>
+        /// <returns></returns>
         public Room[,] Build()
         {
             //1st pass calculate rooms
@@ -34,12 +38,16 @@ namespace DungeonMaker
             {
                 for (int j = 0; j < this.Dungeon.GetLength(1); j++)
                 {
-                    CheckSurroundingRooms(this.Dungeon[i,j], this.Dungeon.GetLength(0), this.Dungeon.GetLength(1));
+                    CheckSurroundingRooms(this.Dungeon[i, j], this.Dungeon.GetLength(0), this.Dungeon.GetLength(1));
                 }
             }
             return this.Dungeon;
         }
 
+        /// <summary>
+        /// this function will place walls in a room with a set of chances
+        /// </summary>
+        /// <param name="f">The room that needs walls placed in</param>
         private void fillInAdditionalWalls(Room f)
         {
             if (!f.NorthWall.Present)
@@ -60,6 +68,10 @@ namespace DungeonMaker
             }
         }
 
+        /// <summary>
+        /// Calculates the chance for a wall to be set or not
+        /// </summary>
+        /// <param name="w"></param>
         private void CalculateWall(Wall w)
         {
             Random r = new Random();
@@ -68,11 +80,12 @@ namespace DungeonMaker
             Console.WriteLine(result);
         }
 
-        private void GenerateWall(Wall northWall)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Checks previously handled room if tehr are adjacent walls we need to take into account
+        /// </summary>
+        /// <param name="f">The current room being handled</param>
+        /// <param name="xLength">The number of rooms on the X-axis of the dungeon. @TODO Needs better implementation with the dungeon.</param>
+        /// <param name="yLength">The number of rooms on the Y-axis of the dungeon. @TODO Needs better implementation with the dungeon.</param>
         private void CheckSurroundingRooms(Room f, int xLength, int yLength)
         {
             if (f.X != 0 && this.Dungeon[f.X - 1, f.Y].SouthWall.Present)
@@ -83,16 +96,22 @@ namespace DungeonMaker
             {
                 f.WestWall.Present = true;
             }
-            if (f.Y + 1 != yLength && this.Dungeon[f.X, f.Y + 1] != null &&  this.Dungeon[f.X, f.Y + 1].WestWall.Present)
+            if (f.Y + 1 != yLength && this.Dungeon[f.X, f.Y + 1] != null && this.Dungeon[f.X, f.Y + 1].WestWall.Present)
             {
                 f.EastWall.Present = true;
             }
-            if (f.X + 1 != xLength &&this.Dungeon[f.X + 1, f.Y] != null && this.Dungeon[f.X + 1, f.Y].NorthWall.Present)
+            if (f.X + 1 != xLength && this.Dungeon[f.X + 1, f.Y] != null && this.Dungeon[f.X + 1, f.Y].NorthWall.Present)
             {
                 f.SouthWall.Present = true;
             }
         }
 
+        /// <summary>
+        /// Builds the room depending on the position it will follow general rules of a dungeon (e.g. outside walls)
+        /// </summary>
+        /// <param name="f">The current room being handled</param>
+        /// <param name="xLength">The number of rooms on the X-axis of the dungeon. @TODO Needs better implementation with the dungeon.</param>
+        /// <param name="yLength">The number of rooms on the Y-axis of the dungeon. @TODO Needs better implementation with the dungeon.</param>
         private void BuildBasicRoom(Room f, int xLength, int yLength)
         {
             //top row has a wall on the north side
